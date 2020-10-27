@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "med-school-journey-c7425": {
+      "hosting": {
+        "med-school-journey": [
+          "medschool-journey"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "med-school-journey-c7425"
+  }
+}

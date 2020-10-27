@@ -1,0 +1,11 @@
+<div class="grid-container">
+  <div class="grid-row" style="text-align: center;"><h4> {{ this.data.title }} </h4></div>
+  <div class="grid-row"><img src='{{ this.data.image_ref }}' style="height:150px; width: 250px;"></div>
+  <div id="card-payment"></div>
+  <div class="grid-row" style="text-align: center;" >
+    <mat-bar-button  *ngIf="!done" [options]="btnOpts" (click)="handlePayment($event)"></mat-bar-button>
+    <button mat-icon-button *ngIf="done" color="primary"><mat-icon>check_circle</mat-icon></button>
+  </div>
+  <div id="card-errors" role="alert"></div>
+
+</div>

@@ -1,0 +1,110 @@
+<section class="main">
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-card class="mat-elevation-z4" [@switchForm]="type" style=" height: 100%; max-width:350px; text-align: center;">
+        <div *ngIf="isLogin">
+            <mat-card-title>
+                Σύνδεση
+            </mat-card-title>
+            <mat-card-subtitle>
+                <button style="margin-bottom: 1rem; margin-top: 1rem;" mat-stroked-button color="primary" (click)="changeType('signup')">
+                    Πρώτη φορά εδώ ?
+                </button>
+            </mat-card-subtitle>
+        </div>
+
+        <div *ngIf="isSignup">
+            <mat-card-title>
+                Δημιουργία λογαριασμού
+            </mat-card-title>
+            <mat-card-subtitle>
+                <button style="margin-bottom: 1rem; margin-top: 1rem;" mat-stroked-button color="primary" (click)="changeType('login')">
+                    Έχεις ήδη λογαριασμό ?
+                </button>
+            </mat-card-subtitle>
+        </div>
+
+        <div *ngIf="isPasswordReset">
+            <h3>Reset Password</h3>
+            <button mat-stroked-button (click)="changeType('login')">
+                Back
+            </button>
+        </div>
+
+        <button style="margin-bottom: 1rem; text-align: end;"  mat-raised-button color="warn" appGoogleSignin>
+            <i class="fas fa-google"></i>
+            Σύνδεση μέσω Gmail
+        </button>
+
+        <p style="margin-top: 1.5rem;">ή</p>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-card-content>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input
+                        type="email"
+                        matInput
+                        formControlName="email"
+                        placeholder="Email"
+                        autocomplete="off"
+                        required/>
+                    <mat-error *ngIf="email.invalid && email.dirty">
+                        Το email δεν είναι αποδεκτό
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="!isPasswordReset">
+                    <mat-label>Κωδικός</mat-label>
+                    <input
+                        matInput [type]="hide ? 'password' : 'text'"
+                        formControlName="password"
+                        placeholder="Password"
+                        minlength="6"
+                        autocomplete='off'
+                        required/>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="password.invalid && password.dirty">
+                        Ελάχιστο μήκος 6 χαρακτήρες
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="isSignup" [color]="passwordDoesMatch ? 'primary' : 'warn'">
+                    <mat-label>Επιβεβαίωση Κωδικού</mat-label>
+                    <input
+                        type="password"
+                        matInput
+                        formControlName="passwordConfirm"
+                        placeholder="Confirm Password"
+                        minlength="6"
+                        autocomplete='off'
+                        required/>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="!passwordDoesMatch">
+                        Οι κωδικοί δεν ταιριάζον
+                    </mat-error>
+                </mat-form-field>
+            </mat-card-content>
+            <button
+                *ngIf="isSignup"
+                mat-raised-button color='primary'
+                type='submit'
+                [disabled]="form.invalid || !passwordDoesMatch || loading">
+                Δημιουργία λογαριασμού
+            </button>
+            <button
+                *ngIf="isLogin"
+                mat-raised-button color='primary'
+                type='submit'
+                [disabled]="form.invalid || !passwordDoesMatch || loading">
+                Σύνδεση
+            </button>
+        </form>
+            <mat-card-footer>
+                <p style="margin: 1.3rem; font-size:small">Σας προτείνουμε να συνδεθείτε μέσω Gmail αν αυτό είναι δυνατό</p>
+            </mat-card-footer>
+    </mat-card>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+::ng-deep .mat-card {
+
+  margin: 1rem;
+  margin-top: 135px;
+  padding: 1rem;
+  z-index: 0;
+
+  img.mat-card-image {
+      margin: 0;
+      margin-top:0.5rem;
+      margin-bottom: 1.3rem;
+  }
+
+  .mat-card-title.title {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 1rem;
+  }
+  .mat-card-subtitle{
+      text-align: center;
+  }
+  button.mat-focus-indicator.mat-stroked-button.mat-button-base.mat-primary{
+      padding: 5px;
+      border-radius: 8px;
+      border-color: #3f51B5;
+      .mat-button-wrapper {
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+              mat-icon{
+                  margin-left:0.25rem;
+              }
+      }
+  }
+}
+
+button{
+  padding: 0.5rem;
+  margin:0.5rem;
+}
+.snack-styling{
+  background-color: chartreuse;
+  color: chocolate;
+}
+
+.grid-container {
+  display: grid;
+  justify-content: space-evenly   ;
+  grid-template-rows: max-content;
+}

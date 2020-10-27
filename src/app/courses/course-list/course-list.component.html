@@ -1,0 +1,22 @@
+<div fxHide fxShow.gt-md="true" fxLayout="row" fxLayoutAlign="center center">
+  <div style="height: 100%; width: 100%;" >
+      <mat-tab-group
+          (selectedTabChange)="onTabClick($event)"
+          id="tabs"
+          mat-stretch-tabs
+          mat-align-tabs="center"
+          [@.disabled]="true"
+          animationDuration="0ms"
+          dynamicHeight
+          >
+          <mat-tab [@switchTab]="tab" label="Τα μαθήματα μου" >
+              <app-my-courses [courses]="courses"></app-my-courses>
+          </mat-tab>
+          <mat-tab [@switchTab]="tab" label="Διαθέσιμα μαθήματα">
+              <app-available-courses
+                  [availableCourses]="availableCourses">
+              </app-available-courses>
+          </mat-tab>
+      </mat-tab-group>
+  </div>
+</div>

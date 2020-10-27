@@ -1,0 +1,39 @@
+.sidenav-container {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.sidenav {
+  width: 200px;
+}
+.mat-sidenav-content{
+  z-index: -1;
+  overflow: hidden;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.navbar{
+  z-index: -1;
+  overflow: hidden;
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: medium;
+  }
+  a.mat-flat-button:hover{
+    color:lightgray;
+  }
+}

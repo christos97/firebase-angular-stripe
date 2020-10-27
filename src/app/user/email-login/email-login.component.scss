@@ -1,0 +1,25 @@
+
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(250, 249, 249);
+  padding: 24px;
+  position: fixed;
+  top: 100px;
+  overflow-y: hidden;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 959px) {
+  .main {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(250, 249, 249);
+    padding: 20px;
+    position: relative;
+    top: 17px;
+    overflow: hidden;
+
+  }
+
+}

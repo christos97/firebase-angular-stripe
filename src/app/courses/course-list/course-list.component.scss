@@ -1,0 +1,63 @@
+.example-large-box {
+  height: 100%;
+  width: 100%;
+}
+
+.mat-tab-label{
+  background-color: whitesmoke;
+  color: rgb(65, 60, 60);
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+::ng-deep .mat-tab-header {
+  position: fixed !important;
+  top: 64px;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(245, 245, 245, 0.925);
+  z-index: 2;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+::ng-deep .mat-tab-body-wrapper{
+  z-index: 0;
+  overflow: hidden;
+  scroll-behavior: auto;
+  margin-top:0px;
+  padding: 2rem;
+}
+
+::ng-deep div.mat-tab-body-content{
+  z-index: 0;
+  margin:0;
+
+}
+
+::ng-deep mat-tab-group {
+  width: 100%;
+}
+@media screen and (max-width: 640px){
+  ::ng-deep .mat-tab-header {
+    position: fixed !important;
+    top: 56px;
+    left: auto;
+    width: 100%;
+    overflow: hidden;
+    background-color: white;
+    z-index: 2;
+  }
+
+}
+
+::ng-deep .mat-tab-body.mat-tab-body-active {
+  animation: fade 500ms ease-in-out;
+}
+
+
+@keyframes fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
