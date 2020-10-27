@@ -30,23 +30,13 @@ async function decodeJWT(req: any, res: any ,next: express.NextFunction) {
             const decodedToken = await auth.verifyIdToken(idToken)
             req.headers['currentUser']= decodedToken
             user = req.headers['currentUser']
-
-
         } catch (error) {
             res.status(401).json({'Authorization Middleware': 401})
         }
     }
     next()
 }
-/*
-function validateUser(req: any){
-    const user = req['currentUser'];
-    if (!user){
-        throw new Error ('You must be logged in, Bearer Auth failed')
-    }
-    return user;
-}
-*/
+
 app.use(decodeJWT)
 
 // HealthCheck
