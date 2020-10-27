@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,HostListener, AfterViewInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, OnDestroy,} from '@angular/core';
 import { Course } from "../../interfaces/course.interface";
 import { Subscription } from 'rxjs';
 import { CourseService } from "../../services/course.service";
@@ -6,6 +6,8 @@ import { difference, includes } from "lodash";
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { take } from 'rxjs/operators';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-course-list',
@@ -35,10 +37,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
   ]
 })
-export class CourseListComponent implements OnInit,AfterViewInit ,OnDestroy {
+export class CourseListComponent implements OnInit,OnDestroy {
 
 
-  constructor(public courseService: CourseService, private afAuth: AngularFireAuth ) { }
+  constructor(
+    public courseService: CourseService,
+    private afAuth: AngularFireAuth,
+    private paymentService: PaymentService
+    ) { }
 
   courses: Course[]
   availableCourses: Course[]
@@ -56,16 +62,13 @@ export class CourseListComponent implements OnInit,AfterViewInit ,OnDestroy {
       })
   }
 
-  async ngAfterViewInit() {
-
-  }
-
-
 
   public tab: string = 'owned'
   onTabClick(e: MatTabChangeEvent){
     this.tab = e.index ? 'available' : 'owned'
-    console.log(this.tab);
+    if (this.tab==='available') {
+      this.paymentService.createSetupIntent()
+    }
   }
 
   ngOnDestroy(): void {

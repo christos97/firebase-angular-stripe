@@ -73,7 +73,10 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     };
 
     const elements = this.stripe.elements()
-    const card: stripe.StripeCardElement = elements.create('card', {style})
+    const card: stripe.StripeCardElement = elements.create('card', {
+      hidePostalCode: true,
+      style: style
+    })
     this.card = card
 
     const userDoc = (await this.pmt.getStripeCustomer(this.user?.uid))?.data()

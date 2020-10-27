@@ -12,7 +12,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from "@angular/fire/functions";
 import { HomeComponent } from './home/home.component';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
@@ -36,7 +35,6 @@ import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    FontAwesomeModule,
 
 
   ],

@@ -30,12 +30,21 @@
             </button>
         </div>
 
-        <button style="margin-bottom: 1rem; text-align: end;"  mat-raised-button color="warn" appGoogleSignin>
-            <i class="fas fa-google"></i>
-            Σύνδεση μέσω Gmail
-        </button>
+        <ng-container *ngIf="isLogin else signupButton">
+          <button style="margin-bottom: 1rem; text-align: end;"  mat-raised-button color="warn" appGoogleSignin>
+              <i style="margin-bottom: 3px; margin-right:3px;" class="fa fa-google"></i>
+              Σύνδεση μέσω Gmail
+          </button>
+        </ng-container>
+        <ng-template #signupButton>
+          <button style="margin-bottom: 1rem; text-align: end;"  mat-raised-button color="warn" appGoogleSignin>
+            <i style="margin-bottom: 3px; margin-right:3px;" class="fa fa-google"></i>
+            Εγγραφή μέσω Gmail
+          </button>
+        </ng-template>
 
         <p style="margin-top: 1.5rem;">ή</p>
+
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <mat-card-content>
                 <mat-form-field>
@@ -87,13 +96,15 @@
                     </mat-error>
                 </mat-form-field>
             </mat-card-content>
-            <button
-                *ngIf="isSignup"
-                mat-raised-button color='primary'
-                type='submit'
-                [disabled]="form.invalid || !passwordDoesMatch || loading">
-                Δημιουργία λογαριασμού
-            </button>
+            <ng-container *ngIf="isSignup else sindesi">
+              <button
+                  mat-raised-button color='primary'
+                  type='submit'
+                  [disabled]="form.invalid || !passwordDoesMatch || loading">
+                  Δημιουργία λογαριασμού
+              </button>
+          </ng-container>
+          <ng-template #sindesi>
             <button
                 *ngIf="isLogin"
                 mat-raised-button color='primary'
@@ -101,6 +112,7 @@
                 [disabled]="form.invalid || !passwordDoesMatch || loading">
                 Σύνδεση
             </button>
+          </ng-template>
         </form>
             <mat-card-footer>
                 <p style="margin: 1.3rem; font-size:small">Σας προτείνουμε να συνδεθείτε μέσω Gmail αν αυτό είναι δυνατό</p>

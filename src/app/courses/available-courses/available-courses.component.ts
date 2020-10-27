@@ -29,16 +29,10 @@ export class AvailableCoursesComponent implements OnInit {
     private courseService: CourseService,
     private afAuth: AngularFireAuth,
     private _snackBar: MatSnackBar,
-    private paymentService: PaymentService
 
     ) { }
 
- async ngOnInit() {
-
-  this.paymentService.createSetupIntent()
-
-
-  }
+ ngOnInit() {}
 
 
   async openDialog({ price, title, courseId, image_ref }){
