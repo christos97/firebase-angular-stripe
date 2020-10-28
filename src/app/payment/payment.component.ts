@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import { analytics } from 'firebase/app';
 
 @Component({
   selector: 'app-payment',
@@ -124,6 +125,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
         this.btnOpts.active = false;
         this.done = true
         setTimeout(() => this.onClose.emit(this.data), 1200)
+        analytics().logEvent('add_payment_info')
       }
     } catch (e){
       console.error(e)

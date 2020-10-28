@@ -38,7 +38,7 @@ export class AvailableCoursesComponent implements OnInit {
 
     const dialogRef = this.dialog.open(PaymentComponent, {
       width: '450px',
-      height: '400px',
+      height: '600px',
       data: {
         "price": price,
         "title": title,
@@ -59,7 +59,7 @@ export class AvailableCoursesComponent implements OnInit {
         })
         }else {
           this._snackBar.open('Kάτι πήγε λάθος... Μην ανησυχείς, δεν χρεώθηκες τίποτα!', '',{
-            duration: 500,
+            duration: 5000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
             panelClass: ['snack-styling'],

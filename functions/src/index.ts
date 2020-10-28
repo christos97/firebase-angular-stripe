@@ -4,4 +4,4 @@ admin.initializeApp();
 
 export { api } from './api'
 export { welcomeEmail } from './mailService'
-
+export { purchaseCompleted, googleLogin } from './analytics'

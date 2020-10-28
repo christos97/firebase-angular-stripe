@@ -9,36 +9,67 @@
 
 .sidenav {
   width: 200px;
-  background-color: white
+  background-color: white;
 }
 .mat-sidenav-content{
   z-index: -1;
   overflow: hidden;
 }
 
-.sidenav .mat-toolbar {
-  //background: red;
-  background-color: red;
-}
-
 .mat-toolbar {
+
   position: sticky;
   top: 0;
   z-index: 1;
   overflow: hidden;
+  background-color: white;
+}
+
+.navbar-before {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  z-index: -1;
+  overflow: hidden;
+  justify-items: flex-end;
+  a.mat-stroked-button {
+    color: rgba(73, 73, 73, 0.884);
+    text-decoration: none;
+    font-size: medium;
+    border-radius: 6px;
+    border-color: rgba(207, 213, 241, 0.89);
+  }
+  a.mat-stroked-button:hover{
+   color: rgba(69, 69, 235, 0.89);
+   background-color: rgba(242, 250, 253, 0.746);
+  }
+ a.mat-stroked-button:nth-child(2) {
+  background-color: lightblue;
+}
 }
 
 .navbar{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
   z-index: -1;
   overflow: hidden;
-  background-color: yellow;
+  justify-content: stretch;
+  flex-basis: 3;
   a.mat-stroked-button {
-    color: red;
+    color: rgba(73, 73, 73, 0.884);
     text-decoration: none;
     font-size: medium;
+    border-radius: 6px;
+    border-color: rgba(207, 213, 241, 0.89);
   }
   a.mat-stroked-button:hover{
-    background-color:lightgray;
-    color: white;
+   color: rgba(69, 69, 235, 0.89);
+   background-color: rgba(242, 250, 253, 0.746);
   }
+ a.mat-stroked-button:nth-of-type(3) {
+  justify-self: flex-end;
+  flex-grow: 3;
+}
+
 }

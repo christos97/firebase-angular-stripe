@@ -16,18 +16,18 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar>
       <button *ngIf="!(isDesktop$ | async)" mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <div class="navbar"  *ngIf="(isDesktop$ | async) && !(afAuth.authState | async)">
+      <div class="navbar-before"  *ngIf="(isDesktop$ | async) && !(afAuth.authState | async)">
           <a mat-stroked-button color="primary" [routerLink]="['/']"> Αρχική </a>
-          <a mat-stroked-button color="secondary" [routerLink]="['/login']"> Είσοδος </a>
+          <a mat-stroked-button color="primary" [routerLink]="['/login']"> Είσοδος </a>
       </div>
       <div class="navbar" *ngIf="(isDesktop$ | async) && (afAuth.authState | async)">
         <a mat-stroked-button color="primary" [routerLink]="['/']" (click)="drawer.close()" >Αρχική</a>
         <a mat-stroked-button color="primary" [routerLink]="['/courses']"> Μαθήματα </a>
-        <a mat-stroked-button color="" (click)="authService.signOut()"> Έξοδος!! </a>
+        <a mat-stroked-button color="primary" style="flex-grow: 3;" (click)="authService.signOut()"> Έξοδος!! </a>
     </div>
     </mat-toolbar>
     <ng-content></ng-content>
