@@ -3,14 +3,14 @@
       [attr.role]="((isHandset$ | async) || (isTablet$ | async) )? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="false">
-    <mat-toolbar style="text-align: center;" >Med School Journey</mat-toolbar>
+    <mat-toolbar style="text-align: center;" >LOGO</mat-toolbar>
     <mat-nav-list *ngIf="!(afAuth.authState | async)">
-      <a mat-list-item [routerLink]="['/']" (click)="drawer.close()">Med School Journey</a>
+      <a mat-list-item [routerLink]="['/']" (click)="drawer.close()">Αρχική</a>
       <a mat-list-item [routerLink]="['/login']" (click)="drawer.close()">Είσοδος</a>
     </mat-nav-list>
 
     <mat-nav-list *ngIf="(afAuth.authState | async)">
-      <a mat-list-item [routerLink]="['/']" (click)="drawer.close()" >Med School Journey</a>
+      <a mat-list-item [routerLink]="['/']" (click)="drawer.close()" >Αρχική</a>
       <a mat-list-item [routerLink]="['/courses']" (click)="drawer.close()">Μαθήματα</a>
       <a mat-list-item [routerLink]="['/']" (click)="drawer.close(); authService.signOut()">Έξοδος</a>
     </mat-nav-list>
@@ -21,13 +21,13 @@
         <mat-icon>menu</mat-icon>
       </button>
       <div class="navbar"  *ngIf="(isDesktop$ | async) && !(afAuth.authState | async)">
-          <a mat-flat-button color="primary" [routerLink]="['/']"> Med School Journey </a>
-          <a mat-flat-button color="primary" [routerLink]="['/login']"> Είσοδος </a>
+          <a mat-stroked-button color="primary" [routerLink]="['/']"> Αρχική </a>
+          <a mat-stroked-button color="secondary" [routerLink]="['/login']"> Είσοδος </a>
       </div>
       <div class="navbar" *ngIf="(isDesktop$ | async) && (afAuth.authState | async)">
-        <a mat-flat-button color="primary" [routerLink]="['/']" (click)="drawer.close()" >Med School Journey</a>
-        <a mat-flat-button color="primary" [routerLink]="['/courses']"> Μαθήματα </a>
-        <a mat-flat-button color="primary" (click)="authService.signOut()"> Έξοδος!! </a>
+        <a mat-stroked-button color="primary" [routerLink]="['/']" (click)="drawer.close()" >Αρχική</a>
+        <a mat-stroked-button color="primary" [routerLink]="['/courses']"> Μαθήματα </a>
+        <a mat-stroked-button color="" (click)="authService.signOut()"> Έξοδος!! </a>
     </div>
     </mat-toolbar>
     <ng-content></ng-content>

@@ -1,5 +1,4 @@
 import { Directive, HostListener } from '@angular/core';
-import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 
 @Directive({
@@ -7,7 +6,7 @@ import { AuthService } from "../services/auth.service";
 })
 export class GoogleSigninDirective {
 
-  constructor(private authService: AuthService,private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   @HostListener('click')
   do(){

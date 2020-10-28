@@ -1,6 +1,7 @@
-<div fxLayout="row" fxLayoutAlign="center center">
-  <div style="height: 100%; width: 100%;" >
+<div appWindowScroll fxLayout="row" fxLayoutAlign="center center">
+  <div appWindowScroll style="height: 100%; width: 100%;" >
       <mat-tab-group
+      appWindowScroll
           (selectedTabChange)="onTabClick($event)"
           id="tabs"
           mat-stretch-tabs
@@ -10,7 +11,7 @@
           dynamicHeight
           >
           <mat-tab [@switchTab]="tab" label="Τα μαθήματα μου" >
-              <app-my-courses [courses]="courses"></app-my-courses>
+              <app-my-courses appWindowScroll [courses]="courses"></app-my-courses>
           </mat-tab>
           <mat-tab [@switchTab]="tab" label="Διαθέσιμα μαθήματα">
               <app-available-courses

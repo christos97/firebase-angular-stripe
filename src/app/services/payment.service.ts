@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentData } from '@angular/fire/firestore';
-import { Observable, of } from "rxjs";
-import { map, catchError } from 'rxjs/operators';
 
-import { ajax } from "rxjs/ajax";
 import { User } from '../interfaces/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as stripe from '@stripe/stripe-js';
@@ -16,11 +13,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class PaymentService {
   private api: string = environment.API || ''
   private stripe: stripe.Stripe;
-  private paymentIntent: stripe.PaymentIntent
-  private setupIntent: stripe.SetupIntent
   private _headers: HttpHeaders
   private user: firebase.User
-  private userDoc: DocumentData
   constructor(
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
@@ -39,7 +33,6 @@ export class PaymentService {
       stripe.loadStripe(environment.STRIPE_KEY)
     ])
 
-    this.userDoc = (await  this.db.collection('users').doc<User>(this.user.uid).get().toPromise())?.data()
 
     const token = this.user && (await this.user.getIdToken())
     this._headers = new HttpHeaders({

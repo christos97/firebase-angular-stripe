@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["lodash", "@angular/fire/firestore", "@firebase/functions"],
             "outputPath": "dist/med-school-journey",
             "index": "src/index.html",
             "main": "src/main.ts",

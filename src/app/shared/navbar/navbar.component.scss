@@ -4,10 +4,12 @@
   top: 0;
   z-index: 9999;
   overflow: hidden;
+  background-color: white;
 }
 
 .sidenav {
   width: 200px;
+  background-color: white
 }
 .mat-sidenav-content{
   z-index: -1;
@@ -15,10 +17,11 @@
 }
 
 .sidenav .mat-toolbar {
-  background: inherit;
+  //background: red;
+  background-color: red;
 }
 
-.mat-toolbar.mat-primary {
+.mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1;
@@ -28,12 +31,14 @@
 .navbar{
   z-index: -1;
   overflow: hidden;
-  a {
-    color: white;
+  background-color: yellow;
+  a.mat-stroked-button {
+    color: red;
     text-decoration: none;
     font-size: medium;
   }
-  a.mat-flat-button:hover{
-    color:lightgray;
+  a.mat-stroked-button:hover{
+    background-color:lightgray;
+    color: white;
   }
 }

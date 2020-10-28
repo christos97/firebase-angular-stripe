@@ -4,7 +4,6 @@ import * as stripe from '@stripe/stripe-js';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
@@ -14,11 +13,8 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
 })
 export class PaymentComponent implements OnInit, AfterViewInit {
 
-  private api: string = environment.API || ''
   private stripe: stripe.Stripe;
   private paymentIntent: stripe.PaymentIntent
-  private setupIntent: stripe.SetupIntent
-  private _headers: HttpHeaders
   public onClose = new EventEmitter<any>()
   user: firebase.User
 
@@ -29,7 +25,6 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private afAuth: AngularFireAuth,
     private pmt: PaymentService,
-    private http: HttpClient,
     ){}
 
     btnOpts: MatProgressButtonOptions = {
@@ -54,6 +49,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
   async ngOnInit(){
 
+    await this.pmt.setupRequest()
     this.user = await this.afAuth.currentUser
     this.stripe = await stripe.loadStripe(environment.STRIPE_KEY)
     const style = {
@@ -115,7 +111,9 @@ export class PaymentComponent implements OnInit, AfterViewInit {
                       this.paymentIntent.client_secret,
                       {
                         payment_method: { card: this.card },
-                        receipt_email: this.user.email ,// mallon gia subs se saved cards?
+                        receipt_email: this.user.email ,
+                        //setup_future_usage: 'on_session'
+                        // mallon gia subscriptions se saved cards?
                       })
 
       if (error){

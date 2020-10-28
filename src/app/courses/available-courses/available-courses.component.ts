@@ -9,9 +9,6 @@ import {
 } from '@angular/material/snack-bar';
 import { CourseService } from 'src/app/services/course.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
-import { HttpHeaders } from '@angular/common/http';
-import { PaymentService } from 'src/app/services/payment.service';
 @Component({
   selector: 'app-available-courses',
   templateUrl: './available-courses.component.html',
@@ -51,19 +48,18 @@ export class AvailableCoursesComponent implements OnInit {
     })
 
     dialogRef.componentInstance.onClose.subscribe( data =>{
-      console.log(data)
       dialogRef.close()
       if (data){
         this.courseService.updateOwnedCourses(uid, data.courseId)
         this._snackBar.open(`Προστέθηκε στα μαθήματα μου: ${data.title}`, '',{
-          duration: 3000,
+          duration: 5000,
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
           panelClass: ['snack-styling'],
         })
         }else {
           this._snackBar.open('Kάτι πήγε λάθος... Μην ανησυχείς, δεν χρεώθηκες τίποτα!', '',{
-            duration: 3000,
+            duration: 500,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
             panelClass: ['snack-styling'],

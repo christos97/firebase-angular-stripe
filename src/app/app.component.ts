@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/firestore"
+import "firebase/auth"
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +16,7 @@ export class AppComponent implements OnInit {
         firebase.firestore().enablePersistence(),
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       ])
-      console.log('Persistence enabled')
+      console.warn('Persistence enabled')
     } catch (error) {
       console.error('Persistense Failed')
     }

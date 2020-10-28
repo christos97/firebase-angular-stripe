@@ -4,9 +4,8 @@ import { Subscription } from 'rxjs';
 import { CourseService } from "../../services/course.service";
 import { difference, includes } from "lodash";
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
-import { MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { take } from 'rxjs/operators';
 import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
@@ -58,7 +57,6 @@ export class CourseListComponent implements OnInit,OnDestroy {
       (allCourses: Course[]) => {
         this.courses = allCourses.filter((course: any) => includes(course.owned_by, uid))
         this.availableCourses = difference(allCourses, this.courses)
-        console.log(this.courses, this.availableCourses)
       })
   }
 

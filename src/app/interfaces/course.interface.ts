@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+import 'firebase/firestore'
 
 export interface Course {
     courseId: string

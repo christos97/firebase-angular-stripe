@@ -15,10 +15,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
+import { WindowScrollDirective } from './directives/window-scroll.directive';
 
 @NgModule({
   declarations: [
-    AppComponent, HomeComponent,
+    AppComponent, HomeComponent, WindowScrollDirective,
   ],
   imports: [
     BrowserModule,

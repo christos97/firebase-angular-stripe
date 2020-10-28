@@ -4,7 +4,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from 'rxjs';
 import { switchMap } from "rxjs/operators";
 import { Course } from "../interfaces/course.interface";
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 
 @Injectable({
   providedIn: 'root'

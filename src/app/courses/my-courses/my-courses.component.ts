@@ -45,7 +45,6 @@ export class MyCoursesComponent implements OnInit, AfterViewInit {
   animationState: string;
 
   startAnimation(state) {
-    console.log(state)
     if (!this.animationState) {
       this.animationState = state;
     }
