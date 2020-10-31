@@ -64,17 +64,14 @@ export const handleStripeWebhook = async(req: any, res: any) => {
 
     const sig: string = req.headers['stripe-signature'] || ''
     const rawBody: Buffer = req['rawBody'] || ''
-    console.log('sig:',sig,'rawBody:',rawBody,'wh_sec:',STRIPE_WEBHOOK_SECRET);
-
     const {type, data}: Stripe.Event = stripe.webhooks.constructEvent(rawBody, sig, STRIPE_WEBHOOK_SECRET)
     try {
         const handler = webHookHandlers.get(type)
-
         if (handler !== undefined){
             await handler(data.object)
-            res.status(200).send('Webhook endpoint activated')
+            res.status(200).end()
         }else{
-            res.status(404).send('Webhook hander is undefined')
+            res.status(404).end()
         }
     } catch (error) {
         console.error(error)

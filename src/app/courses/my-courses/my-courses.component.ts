@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Course } from '../../interfaces/course.interface';
-import { AngularFireStorage ,AngularFireStorageReference } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatCard } from '@angular/material/card';
 
@@ -17,16 +17,14 @@ export class MyCoursesComponent implements OnInit, AfterViewInit {
   @Input () courses: Course[]
   @ViewChild(MatCard) card: MatCard
 
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event){
-    console.log($event);
-    console.log("scrolling");
-  }
+
 
   constructor(private afStorage: AngularFireStorage, private db: AngularFirestore) { }
 
 
 
   ngOnInit(): void {
+    console.log(this.courses)
   }
 
   ngAfterViewInit (){

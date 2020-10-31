@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface'
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { map, switchMap, take } from "rxjs/operators";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +33,9 @@ export class AuthService {
 
   async googleSignin() {
     const credential = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    firebase.analytics().logEvent('login',{method: credential.credential.signInMethod})
-
+    if (environment.production){
+      firebase.analytics().logEvent('login',{method: credential.credential.signInMethod})
+    }
     return this.updateUserData(credential.user)
   }
 
@@ -42,6 +43,15 @@ export class AuthService {
   async signOut() {
     await this.afAuth.signOut()
     this.router.navigate(['/login'])
+    window.location.reload()
+  }
+
+   isAdmin(){
+    return this.afAuth.idTokenResult
+                .pipe(
+                  take(1),
+                  map(decoded =>
+                    decoded?.claims?.role === 'admin' ? true : false ))
 
   }
 

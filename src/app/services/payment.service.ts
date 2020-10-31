@@ -41,7 +41,41 @@ export class PaymentService {
     })
   }
 
+  async confirmSetupIntent(si: string, pm: string) {
+    await this.setupRequest()
 
+    console.log('service:',si,pm)
+    return await
+    this.http
+        .post(`${this.api}/wallet/confirm`, {
+          si_id: si,
+          payment_method: pm
+        } ,{ headers: this._headers })
+        .toPromise() as stripe.SetupIntent
+  }
+
+
+  async createInvoice(invoiceItem: any){
+    await this.setupRequest()
+
+    return await
+            this.http
+                .post(`${this.api}/invoice`,
+                  JSON.stringify(invoiceItem),
+                  { headers: this._headers })
+                .toPromise() as stripe.SetupIntent
+  }
+
+  async payInvoice(id: string){
+    await this.setupRequest()
+
+    return await
+            this.http
+                .post(`${this.api}/invoice/pay`,
+                  JSON.stringify({invoiceId: id}),
+                  { headers: this._headers })
+                .toPromise() as stripe.SetupIntent
+  }
 
   async createSetupIntent() {
     await this.setupRequest()
@@ -50,8 +84,6 @@ export class PaymentService {
             this.http
                 .post(`${this.api}/wallet`, {} ,{ headers: this._headers })
                 .toPromise() as stripe.SetupIntent
-
-
   }
 
   async createPaymentIntent(body){

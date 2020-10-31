@@ -7,16 +7,18 @@ import * as functions from "firebase-functions";
 sgMail.setApiKey(SG_API_KEY)
 
 export const welcomeEmail = functions.auth.user().onCreate( user => {
-
+    console.log(SG_API_KEY)
     const msg = {
         to: user.email,
-        from: "sirmchristos@gmail.com",
+        from: "medschooljourney1@gmail.com",
         templateId: WELCOME_EMAIL,
         dynamic_template_data: {
             name: user.displayName,
-            subject: 'This text is binded'
+            subject: 'Welcome to MedSchoolJourney'
         }
     }
+
+    console.log('Mail here');
 
     return sgMail.send(msg)
 })

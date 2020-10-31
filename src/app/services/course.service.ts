@@ -24,10 +24,10 @@ export class CourseService {
                   }))
   }
 
-  updateOwnedCourses(userId: string, courseId: string){
+  updateOwnedCourses(userId: string, course_id: string){
     return this.db
       .collection<Course>('courses')
-      .doc(courseId)
+      .doc(course_id)
       .update({
         owned_by: firebase.firestore.FieldValue.arrayUnion(userId)
       })

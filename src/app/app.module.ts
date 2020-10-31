@@ -15,11 +15,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
-import { WindowScrollDirective } from './directives/window-scroll.directive';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
-    AppComponent, HomeComponent, WindowScrollDirective,
+    AppComponent, HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +36,7 @@ import { WindowScrollDirective } from './directives/window-scroll.directive';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
 
 
   ],

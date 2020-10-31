@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 
-export const purchaseCompleted = functions.analytics.event('add_payment_info').onLog((e:any) => {
+export const purchaseCompleted = functions.analytics.event('purchase').onLog((e:any) => {
   console.log(e)
 })
 

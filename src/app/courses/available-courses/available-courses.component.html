@@ -1,16 +1,15 @@
-<div matTab>
-  <mat-card *ngFor="let availableCourse of availableCourses">
-    <div fxLayout="column" fxLayoutAlign="center center">
-        <mat-card-header>
+<div cdkScrollable class="card-grid">
+  <mat-card class="mat-elevation-z3"  *ngFor="let availableCourse of availableCourses">
+        <mat-card-title-group>
             <mat-card-title class="title">
                 {{availableCourse.title}}
             </mat-card-title>
             <mat-card-subtitle>
                 Τελευταία ενημέρωση: {{ availableCourse.created_at.seconds*1000 | date: 'dd/MM/yyyy' }}
             </mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src='{{availableCourse.image_ref}}' style="width:150px; height:100px;" alt="">
+        </mat-card-title-group>
         <mat-card-content>
+           <img mat-card-image src='{{availableCourse.image_ref}}' style="width:150px; height:100px;" alt="">
             <h6>{{availableCourse.price | currency: 'EUR'}} </h6>
         </mat-card-content>
         <mat-card-actions>
@@ -18,6 +17,5 @@
                 <mat-icon>arrow_forward</mat-icon>
             </button>
         </mat-card-actions>
-    </div>
   </mat-card>
 </div>

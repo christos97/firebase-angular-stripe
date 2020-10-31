@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -19,21 +19,27 @@ export class NavbarComponent {
       map(result => result.matches),
       shareReplay()
     );
-    isTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet)
+  isTablet$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Tablet)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+  isDesktop$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.WebLandscape)
+    .pipe(
+    map(result => result.matches),
+    shareReplay()
+  );
 
-    public isDesktop$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.WebLandscape)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  admin: boolean
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
     public afAuth: AngularFireAuth,
-    ) {}
-
+    ) {
+      this.authService
+          .isAdmin()
+          .subscribe(
+            isAdmin => this.admin = isAdmin,
+            error => console.error(error))
+    }
 }

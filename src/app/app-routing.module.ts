@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
-import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
-
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-const redirectLoggedInToCourses = () => redirectLoggedInTo(['courses']);
+import { canActivate } from '@angular/fire/auth-guard';
+import { ACCEPT, REJECT } from "../settings/app-routing.guards";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '', component: HomeComponent
+  },
   {
     path: 'login',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-    ...canActivate(redirectLoggedInToCourses)
+    ...canActivate(ACCEPT.USER)
   },
   {
     path: 'courses',
     loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
-    ...canActivate(redirectUnauthorizedToLogin)
+    ...canActivate(REJECT.UNAUTHORIZED)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    ...canActivate(ACCEPT.ADMIN)
   }
 ];
 

@@ -11,5 +11,6 @@ export const environment = {
     measurementId: "G-6GH4C79M3L"
   },
   STRIPE_KEY: "pk_test_51Hf3sqJuSjlTtqXXFAqrVrV757DHDDQ7SMElMwkx3TNondi2PAaThHJCLs4LTU587AtGbtabyxOKACI6AjIQdKVd00ppuE1L5e",
-  API: "https://us-central1-med-school-journey-c7425.cloudfunctions.net/api"
+  API: "https://us-central1-med-school-journey-c7425.cloudfunctions.net/api",
+  serviceWorker: true
 };

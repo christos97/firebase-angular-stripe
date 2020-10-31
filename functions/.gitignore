@@ -9,3 +9,5 @@ typings/
 node_modules/
 .env
 med-school-journey-c7425-firebase-adminsdk-gujnx-92463afcf2.json
+sendgrid.env
+sendgrid.env

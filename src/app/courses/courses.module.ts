@@ -6,13 +6,15 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { PaymentComponent } from '../payment/payment.component';
 import { CoursesRoutingModule } from "../courses/courses-routing.module";
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [AvailableCoursesComponent, MyCoursesComponent, CourseListComponent, PaymentComponent],
   imports: [
     CommonModule,
     SharedModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    ScrollingModule
   ]
 })
 export class CoursesModule { }

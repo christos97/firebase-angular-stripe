@@ -1,7 +1,7 @@
+import { UserRecord } from "firebase-functions/lib/providers/auth";
 import Stripe from "stripe";
 import { stripe } from "./api";
 import { db } from "./firebase";
-import { User } from "./user.model";
 
 export async function getOrCreateCustomer(userId: string, source?: any) {
 
@@ -32,7 +32,7 @@ export async function getOrCreateCustomer(userId: string, source?: any) {
     }
 }
 
-export async function createSetupIntent(user: User) {
+export async function createSetupIntent(user: UserRecord) {
     const customer = await getOrCreateCustomer(user.uid)
 
 
@@ -42,12 +42,19 @@ export async function createSetupIntent(user: User) {
     })
 }
 
+export async function confirmSetupIntent(body: any){
+  return await stripe.setupIntents.confirm(
+    body.si_id,
+    {payment_method: body.payment_method}
+  );
+}
 
-export async function listPaymentMethods(user: User) {
+
+export async function listPaymentMethods(user: UserRecord) {
     const { id } = await getOrCreateCustomer(user.uid)
     const { data } = await stripe.paymentMethods.list({
         customer: id,
         type: 'card',
     })
-    return data
+    return data as Stripe.PaymentMethod[]
 }

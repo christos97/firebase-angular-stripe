@@ -12,6 +12,9 @@
     <mat-nav-list *ngIf="(afAuth.authState | async)">
       <a mat-list-item [routerLink]="['/']" (click)="drawer.close()" >Αρχική</a>
       <a mat-list-item [routerLink]="['/courses']" (click)="drawer.close()">Μαθήματα</a>
+      <ng-container *ngIf="admin">
+        <a mat-list-item [routerLink]="['/admin']" (click)="drawer.close()">Admin</a>
+      </ng-container>
       <a mat-list-item [routerLink]="['/']" (click)="drawer.close(); authService.signOut()">Έξοδος</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -26,6 +29,9 @@
       </div>
       <div class="navbar" *ngIf="(isDesktop$ | async) && (afAuth.authState | async)">
         <a mat-stroked-button color="primary" [routerLink]="['/']" (click)="drawer.close()" >Αρχική</a>
+        <ng-container *ngIf="admin">
+          <a mat-stroked-button color="primary" [routerLink]="['/admin']"> Admin </a>
+        </ng-container>
         <a mat-stroked-button color="primary" [routerLink]="['/courses']"> Μαθήματα </a>
         <a mat-stroked-button color="primary" style="flex-grow: 3;" (click)="authService.signOut()"> Έξοδος!! </a>
     </div>

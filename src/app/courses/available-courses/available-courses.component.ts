@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Course } from '../../interfaces/course.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentComponent } from "../../payment/payment.component";
@@ -9,12 +9,13 @@ import {
 } from '@angular/material/snack-bar';
 import { CourseService } from 'src/app/services/course.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { analytics } from 'firebase';
 @Component({
   selector: 'app-available-courses',
   templateUrl: './available-courses.component.html',
   styleUrls: ['./available-courses.component.scss']
 })
-export class AvailableCoursesComponent implements OnInit {
+export class AvailableCoursesComponent implements OnInit , AfterViewInit {
 
   @Input() availableCourses: Course[]
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
@@ -29,10 +30,16 @@ export class AvailableCoursesComponent implements OnInit {
 
     ) { }
 
- ngOnInit() {}
+ ngOnInit() {
+
+ }
+
+ ngAfterViewInit() {
+
+ }
 
 
-  async openDialog({ price, title, courseId, image_ref }){
+  async openDialog({ price, title, course_id, image_ref, prod_id }: Course){
 
     const { uid } = await this.afAuth.currentUser
 
@@ -42,7 +49,8 @@ export class AvailableCoursesComponent implements OnInit {
       data: {
         "price": price,
         "title": title,
-        "courseId": courseId,
+        "course_id": course_id,
+        "prod_id": prod_id ?? '',
         "image_ref": image_ref ?? ''
       }
     })
@@ -50,7 +58,8 @@ export class AvailableCoursesComponent implements OnInit {
     dialogRef.componentInstance.onClose.subscribe( data =>{
       dialogRef.close()
       if (data){
-        this.courseService.updateOwnedCourses(uid, data.courseId)
+        console.log('component instanse callback',data)
+        this.courseService.updateOwnedCourses(uid, data.course_id)
         this._snackBar.open(`Προστέθηκε στα μαθήματα μου: ${data.title}`, '',{
           duration: 5000,
           horizontalPosition: this.horizontalPosition,
