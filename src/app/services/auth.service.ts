@@ -39,6 +39,12 @@ export class AuthService {
     return this.updateUserData(credential.user)
   }
 
+  async getUserDoc(){
+    const { uid } = await this.afAuth.currentUser
+    const ref  = await this.db.collection('users').doc<User>(uid).get().toPromise()
+    return ref?.data()
+  }
+
 
   async signOut() {
     await this.afAuth.signOut()

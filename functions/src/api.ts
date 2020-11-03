@@ -15,6 +15,7 @@ const app = express()
 export const api = functions.https.onRequest(app)
 
 export const stripe = new Stripe(STRIPE_SECRET, { apiVersion: '2020-08-27' })
+
 app.use(cors({ origin: true }))
 app.use(express.urlencoded({ extended: true }))
 
@@ -25,6 +26,7 @@ app.use(express.json({
 }))
 
 let user: UserRecord
+let isAdmin: boolean
 async function decodeJWT(req: any, res: any ,next: express.NextFunction) {
 
  // run this with desired uid to set custom claims
@@ -37,24 +39,19 @@ async function decodeJWT(req: any, res: any ,next: express.NextFunction) {
         try {
             const { uid } = await auth.verifyIdToken(idToken)
             user = await auth.getUser(uid)
-            console.log(user)
+            isAdmin = user?.customClaims?.role === 'admin'
         } catch (error) {
-            res.status(401).json({'Authorization Middleware': 401})
+            res.status(401).send({'Authorization Middleware': 401})
         }
-    }
+    }else res.status(400).send({'No Bearer Authorization header found': 400})
     next()
-}
-
-async function validateAdmin() {
-  return !!user?.customClaims?.admin || false
 }
 
 app.use(decodeJWT)
 
-
 // HealthCheck
 app.get('/', async (req, res) => {
-  (await validateAdmin()) ?  res.status(200).json({ response: 'OK'}) : res.status(401).send('Unauthorized')})
+  isAdmin ?  res.status(200).json({ response: 'OK'}) : res.status(401).send('Unauthorized')})
 
 function runAsync (callback: Function) {
     return (req: express.Request, res: express.Response , next?: express.NextFunction) => {

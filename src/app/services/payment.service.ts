@@ -15,24 +15,12 @@ export class PaymentService {
   private stripe: stripe.Stripe;
   private _headers: HttpHeaders
   private user: firebase.User
-  constructor(
-    private db: AngularFirestore,
-    private afAuth: AngularFireAuth,
-    private http: HttpClient,
+  constructor(private afAuth: AngularFireAuth, private http: HttpClient) {}
 
-    ) {
-     }
-
-  getStripeCustomer(userId: string) {
-    return this.db.collection('users').doc<User>(userId).get().toPromise()
-  }
 
   async setupRequest() {
-    [this.user, this.stripe] = await Promise.all([
-      this.afAuth.currentUser,
-      stripe.loadStripe(environment.STRIPE_KEY)
-    ])
-
+    [this.user, this.stripe] = await Promise.all(
+      [this.afAuth.currentUser, stripe.loadStripe(environment.STRIPE_KEY)])
 
     const token = this.user && (await this.user.getIdToken())
     this._headers = new HttpHeaders({
@@ -52,29 +40,6 @@ export class PaymentService {
           payment_method: pm
         } ,{ headers: this._headers })
         .toPromise() as stripe.SetupIntent
-  }
-
-
-  async createInvoice(invoiceItem: any){
-    await this.setupRequest()
-
-    return await
-            this.http
-                .post(`${this.api}/invoice`,
-                  JSON.stringify(invoiceItem),
-                  { headers: this._headers })
-                .toPromise() as stripe.SetupIntent
-  }
-
-  async payInvoice(id: string){
-    await this.setupRequest()
-
-    return await
-            this.http
-                .post(`${this.api}/invoice/pay`,
-                  JSON.stringify({invoiceId: id}),
-                  { headers: this._headers })
-                .toPromise() as stripe.SetupIntent
   }
 
   async createSetupIntent() {

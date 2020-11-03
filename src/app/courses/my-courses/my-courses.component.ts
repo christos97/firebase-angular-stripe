@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Course } from '../../interfaces/course.interface';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MatCard } from '@angular/material/card';
 
 
 
@@ -12,46 +11,17 @@ import { MatCard } from '@angular/material/card';
   styleUrls: ['./my-courses.component.scss'],
 
 })
-export class MyCoursesComponent implements OnInit, AfterViewInit {
+export class MyCoursesComponent implements OnInit {
 
-  @Input () courses: Course[]
-  @ViewChild(MatCard) card: MatCard
-
-
+  @Input() courses: Course[]
 
   constructor(private afStorage: AngularFireStorage, private db: AngularFirestore) { }
-
-
 
   ngOnInit(): void {
     console.log(this.courses)
   }
 
-  ngAfterViewInit (){
-
-  }
-
-  async viewFile(ref: string) {
-
-    /*const afStorageRef = this.afStorage.storage.refFromURL(ref)
-    const url = await afStorageRef.getDownloadURL()
-    */
-
-    window.open(ref)
-  }
-
-  animationState: string;
-
-  startAnimation(state) {
-    if (!this.animationState) {
-      this.animationState = state;
-    }
-  }
-
-  resetAnimationState() {
-    this.animationState = '';
-  }
-
-
+  viewFile = async (gsUrl: string) =>
+    window.open(await (this.afStorage.storage.refFromURL(gsUrl)).getDownloadURL())
 
 }

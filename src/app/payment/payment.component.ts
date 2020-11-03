@@ -8,6 +8,8 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { analytics } from 'firebase/app';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { Course } from '../interfaces/course.interface';
+import { AuthService } from '../services/auth.service';
+import { DocumentData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-payment',
@@ -19,18 +21,16 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   private stripe: stripe.Stripe;
   private paymentIntent: stripe.PaymentIntent
   private setupIntent: stripe.SetupIntent
-  private invoice: any
   public onClose = new EventEmitter<any>()
-  user: firebase.User
+  private userDoc: DocumentData
 
 
   @ViewChild('card-payment') card : stripe.StripeCardElement
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Course,
-    private afAuth: AngularFireAuth,
+    private auth: AuthService,
     private pmt: PaymentService,
-    private functions: AngularFireFunctions
     ){}
 
     btnOpts: MatProgressButtonOptions = {
@@ -61,7 +61,6 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
     })
 
-    this.user = await this.afAuth.currentUser
     this.stripe = await stripe.loadStripe(environment.STRIPE_KEY)
     const style = {
       base: {
@@ -85,32 +84,19 @@ export class PaymentComponent implements OnInit, AfterViewInit {
       style: style
     })
     this.card = card
-
-    const userDoc = (await this.pmt.getStripeCustomer(this.user?.uid))?.data()
+    this.userDoc = await this.auth.getUserDoc()
 
     let body =
       {
         description: this.data.title,
         amount: this.data.price*100,
-        customer: userDoc.cus_id,
-        receipt_email : this.user.email,
+        customer: this.userDoc.cus_id,
+        receipt_email : this.userDoc.email,
       }
 
-  let invoiceItem = {
-    customer: userDoc.cus_id,
-    price: this.data.prod_id
-  }
-
     this.setupIntent = await this.pmt.createSetupIntent()
-    console.log('SETUP INTENT:',this.setupIntent);
-
-
-    //this.invoice = await this.pmt.createInvoice(invoiceItem)
-    //console.log(this.invoice)
-    //Create Payment Intent
     this.paymentIntent = await this.pmt.createPaymentIntent(body)
 
-    console.log('PAYMENT INTENT:',this.paymentIntent);
     }
 
   ngAfterViewInit() {
@@ -134,7 +120,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
                       this.paymentIntent.client_secret,
                       {
                         payment_method: { card: this.card },
-                        receipt_email: this.user.email ,
+                        receipt_email: this.userDoc.email ,
                         setup_future_usage: 'on_session'
                         // mallon gia subscriptions se saved cards?
                       })
@@ -148,11 +134,8 @@ export class PaymentComponent implements OnInit, AfterViewInit {
         this.btnOpts.active = false;
         this.done = true
         setTimeout(() => this.onClose.emit(this.data), 1200)
-        console.log(pi.payment_method)
-        const confirmed = await this.pmt.confirmSetupIntent(this.setupIntent.id, pi.payment_method)
-        console.log(confirmed);
-        //const response = await this.pmt.payInvoice(this.invoice.id)
-        //console.log('Invoice paid res', response)
+        await this.pmt.confirmSetupIntent(this.setupIntent.id, pi.payment_method)
+
         if (!environment.production){
           console.log('firing purchase event');
           let item: firebase.analytics.Item =

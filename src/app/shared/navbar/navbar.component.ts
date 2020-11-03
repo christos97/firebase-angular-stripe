@@ -30,16 +30,12 @@ export class NavbarComponent {
     shareReplay()
   );
 
-  admin: boolean
+  admin: Observable<boolean>
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
     public afAuth: AngularFireAuth,
     ) {
-      this.authService
-          .isAdmin()
-          .subscribe(
-            isAdmin => this.admin = isAdmin,
-            error => console.error(error))
+    this.admin =  this.authService.isAdmin()
     }
 }

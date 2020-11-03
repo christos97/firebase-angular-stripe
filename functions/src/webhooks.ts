@@ -1,80 +1,61 @@
 import {stripe} from './api'
 import {Stripe} from 'stripe'
-import * as sgMail from "@sendgrid/mail";
-import { STRIPE_WEBHOOK_SECRET, SG_API_KEY } from "./firebase";
-
-const webHookHandlers: Map<String, Function> = new Map([
-
-    [
-        'payment_intent.succeeded',
-        async (data: Stripe.PaymentIntent) => {
-            console.log('PAYMENT_INTENT.succeeded', data)
-
-        }
-    ],
-    [
-        'payment_intent.failed',
-        async (data: Stripe.PaymentIntent) => {
-            console.log('PAYMENT_INTENT.failed', data)
-        }
-    ],
-    [
-        'payment_intent.created',
-        async(data: Stripe.PaymentIntent) => {
-            console.log("PAYMENT_INTENT.CREATED",data)
+import { STRIPE_WEBHOOK_SECRET } from "./firebase";
 
 
-        }
-    ],
-    [
-        'charge.succeeded',
-        async(data: any) => {
-            sgMail.setApiKey(SG_API_KEY)
-            console.log("CHARGE.SUCCEEDED",data)
 
+class StripeWebHook {
 
-        }
-    ],
-    [
-        'checkout.session',
-        async(data: Stripe.PaymentIntent) => {
-            console.log("CHECKOUT.SESSION",data)
+  private type: string
+  constructor(type: string){
+    this.type = type
+  }
 
-        }
-    ],
-    [
-        'setup_intent.created',
-        async(data: any) => {
-            console.log("SETUP_INTENT.CREATED",data)
+  async runHandler(data: any) {
 
-        }
-    ],
-    [
-        'customer.created',
-        async(data: any) => {
-            console.log("CUSTOMER.CREATED",data)
+    switch (this.type) {
 
-        }
-    ],
-])
+      case 'customer.created':
+        console.log(data)
+        break
+
+      case 'setup_intent.created':
+        console.log(data)
+        break
+
+      case 'payment_intent.created':
+        console.log(data)
+        break
+
+      case 'payment_intent.succeeded':
+        console.log(data)
+        break
+
+      case 'setup_intent.succeeded':
+        console.log(data)
+        break
+
+      case 'charge.succeeded':
+        console.log(data)
+        break
+
+      case 'payment_method.attached':
+        console.log(data)
+        break
+
+    }
+  }
+}
 
 
 export const handleStripeWebhook = async(req: any, res: any) => {
-    console.log('WEBHOOK RUNNING');
-
     const sig: string = req.headers['stripe-signature'] || ''
     const rawBody: Buffer = req['rawBody'] || ''
     const {type, data}: Stripe.Event = stripe.webhooks.constructEvent(rawBody, sig, STRIPE_WEBHOOK_SECRET)
+    const webhook = new StripeWebHook(type)
+    console.log('Webhook:',type ,'activated');
     try {
-        const handler = webHookHandlers.get(type)
-        if (handler !== undefined){
-            await handler(data.object)
-            res.status(200).end()
-        }else{
-            res.status(404).end()
-        }
-    } catch (error) {
-        console.error(error)
-        res.status(400).json({ 'Webhook Error' : error })
-    }
+        await webhook.runHandler(data.object)
+        res.status(200).end()
+    } catch (error) { res.status(400).end() }
 }
