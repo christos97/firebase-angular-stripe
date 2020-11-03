@@ -5,6 +5,7 @@ export interface Course {
     created_at: firebase.firestore.Timestamp
     price: number
     title: string
+    bio: string
     prod_id?: string
     file_ref: string
     image_ref: string

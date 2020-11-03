@@ -14,7 +14,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     CommonModule,
     SharedModule,
     CoursesRoutingModule,
-    ScrollingModule
+    ScrollingModule,
   ]
 })
 export class CoursesModule { }

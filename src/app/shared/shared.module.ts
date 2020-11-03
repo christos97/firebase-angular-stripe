@@ -21,6 +21,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 const COMPONENTS = [
@@ -49,7 +51,8 @@ const MODULES = [
         MatSnackBarModule,
         MatButtonToggleModule,
         MatProgressButtonsModule,
-
+        MatExpansionModule,
+        NgImageSliderModule
 ]
 
 @NgModule({

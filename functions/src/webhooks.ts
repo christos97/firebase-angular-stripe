@@ -44,6 +44,7 @@ class StripeWebHook {
         break
 
     }
+    return
   }
 }
 
@@ -56,6 +57,6 @@ export const handleStripeWebhook = async(req: any, res: any) => {
     console.log('Webhook:',type ,'activated');
     try {
         await webhook.runHandler(data.object)
-        res.status(200).end()
-    } catch (error) { res.status(400).end() }
+        res.status(200).send()
+    } catch (error) { res.status(400).send('hmmmmm') }
 }

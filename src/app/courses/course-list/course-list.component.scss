@@ -1,11 +1,6 @@
-.example-large-box {
-  height: 100%;
-  width: 100%;
-}
-
 .mat-tab-label{
-  background-color: whitesmoke;
-  color: rgb(65, 60, 60);
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   margin-left: 0%;
   margin-right: 0%;
 }
@@ -14,18 +9,15 @@
   position: fixed !important;
   top: 64px;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll;
   background-color: rgba(245, 245, 245, 0.925);
-  z-index: 2;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  z-index: 1;
+
 }
 
 ::ng-deep .mat-tab-body-wrapper{
   z-index: 0;
   overflow: hidden;
-  scroll-behavior: auto;
   margin-top:0px;
   padding: 2rem;
 }
@@ -38,6 +30,7 @@
 
 ::ng-deep mat-tab-group {
   width: 100%;
+  overflow: hidden;
 }
 @media screen and (max-width: 640px){
   ::ng-deep .mat-tab-header {

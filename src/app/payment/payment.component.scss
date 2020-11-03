@@ -1,18 +1,13 @@
 .StripeElement {
-
-
   height: 40px;
   padding: 10px 12px;
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   border: 1px solid transparent;
   border-radius: 4px;
   background-color: whitesmoke;
-
   box-shadow: 0 1px 3px 0 #e6ebf1;
   -webkit-transition: box-shadow 150ms ease;
   transition: box-shadow 150ms ease;
-
-
   width: 100%;
 }
 
@@ -20,19 +15,17 @@
   text-align: center;
 }
 
-
 .StripeElement--focus {
   box-shadow: 0 1px 3px 0 #4f69c6;
 }
 
 .StripeElement--invalid {
-  border-color: #fa755a;
+  border-color: #f15c3f;
 }
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
 }
-
 
 #card-errors {
   position: relative;
@@ -43,19 +36,6 @@
   font-size: small;
 }
 
-
-
-.pay-btn {
-  margin-left:2.5rem; margin-top: 1.5rem;
-  padding: 0.5rem;
-}
-
-.grid-container {
-  display: grid;
-  justify-content: center;
-  grid-template-rows: 1fr 3fr 1.5fr;
-}
-.ctx {
-  grid-column: ctx;
-  justify-self: end;
+.mat-bar-button {
+  margin-left: 8px;
 }

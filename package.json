@@ -37,6 +37,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "mat-progress-buttons": "^9.1.1",
+    "ng-image-slider": "^2.6.4",
     "rxfire": "^3.13.5",
     "rxjs": "^6.5.5",
     "tslib": "^2.0.0",

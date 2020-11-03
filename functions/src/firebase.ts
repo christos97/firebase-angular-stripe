@@ -2,7 +2,6 @@ import * as admin from 'firebase-admin'
 import * as functions from "firebase-functions";
 
 const fc = functions.config()
-console.log(fc)
 const
     STRIPE_SECRET = fc.stripe.sk_test,
     SG_API_KEY = fc.sendgrid.key,

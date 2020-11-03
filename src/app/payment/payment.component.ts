@@ -2,14 +2,13 @@ import { Component, AfterViewInit, ViewChild, OnInit, Inject, EventEmitter } fro
 import { PaymentService } from "../services/payment.service";
 import * as stripe from '@stripe/stripe-js';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { MatProgressButtonOptions } from 'mat-progress-buttons';
 import { analytics } from 'firebase/app';
-import { AngularFireFunctions } from '@angular/fire/functions';
 import { Course } from '../interfaces/course.interface';
 import { AuthService } from '../services/auth.service';
 import { DocumentData } from '@angular/fire/firestore';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-payment',
@@ -23,9 +22,9 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   private setupIntent: stripe.SetupIntent
   public onClose = new EventEmitter<any>()
   private userDoc: DocumentData
-
-
-  @ViewChild('card-payment') card : stripe.StripeCardElement
+  size: object = {
+    width: '200px', height: '200px', space: 4
+  }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Course,
@@ -53,7 +52,22 @@ export class PaymentComponent implements OnInit, AfterViewInit {
     };
 
 
+    imageObject: Array<object> = [{
+        image: `assets/images/${this.data.course_id}/${this.data.title}-1.png`,
+        thumbImage: `assets/images/${this.data.course_id}/${this.data.title}-1-200x200.png`,
+        alt: 'alt of image',
+        title: 'title of image',
+
+    }, {
+        image: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+        thumbImage: '.../iOe/xHHf4nf8AE75h3j1x64ZmZ//Z==', // Support base64 image
+        title: 'Image title', //Optional: You can use this key if want to show image with title
+        alt: 'Image alt' //Optional: You can use this key if want to show image with alt
+    }
+];
+    @ViewChild('card-payment') card : stripe.StripeCardElement
   async ngOnInit(){
+
     analytics().logEvent('select_item', {
       item_list_id: this.data.course_id,
       item_list_name: this.data.title,
@@ -99,7 +113,13 @@ export class PaymentComponent implements OnInit, AfterViewInit {
 
     }
 
+  @ViewChild('sections') photos : MatExpansionPanel
+  @ViewChild('info') info : MatExpansionPanel
+  @ViewChild('pay') pay : MatExpansionPanel
   ngAfterViewInit() {
+    this.info.close()
+    this.pay.close()
+    this.photos.open()
     setTimeout(() => {
       this.card.mount('#card-payment')
       this.card.focus()

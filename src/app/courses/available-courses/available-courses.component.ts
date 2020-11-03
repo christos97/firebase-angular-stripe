@@ -39,7 +39,7 @@ export class AvailableCoursesComponent implements OnInit , AfterViewInit {
  }
 
 
-  async openDialog({ price, title, course_id, image_ref, prod_id }: Course){
+  async openDialog({ price, title, course_id, image_ref, prod_id, bio }: Course){
 
     const { uid } = await this.afAuth.currentUser
 
@@ -51,8 +51,10 @@ export class AvailableCoursesComponent implements OnInit , AfterViewInit {
         "title": title,
         "course_id": course_id,
         "prod_id": prod_id ?? '',
-        "image_ref": image_ref ?? ''
-      }
+        "image_ref": image_ref ?? '',
+        "bio": bio ?? ''
+      },
+      autoFocus: false
     })
 
     dialogRef.componentInstance.onClose.subscribe( data =>{

@@ -1,15 +1,40 @@
-<div class="grid-container">
-  <div class="grid-row" style="text-align: center;"><h4> {{ this.data.title }} </h4></div>
-  <div class="grid-row"><img src='{{ this.data.image_ref }}' style="height:150px; width: 250px;"></div>
-  <div id="card-payment"></div>
-  <div class="grid-row" style="text-align: center;" >
-    <ng-container *ngIf="!done else paymentDone">
-      <mat-bar-button  [options]="btnOpts" (click)="handlePayment($event)"></mat-bar-button>
-    </ng-container>
-    <ng-template #paymentDone>
-      <button mat-icon-button color="primary"><mat-icon>check_circle</mat-icon></button>
-    </ng-template>
-  </div>
-  <div id="card-errors" role="alert"></div>
-
+<div matDialogTitle> {{ this.data.title }} </div>
+<ng-image-slider [imageSize]="size" [images]="imageObject" #nav></ng-image-slider>
+<div matDialogContent>
+  <mat-accordion [multi]="false">
+    <mat-expansion-panel #sections [expanded]="true" >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Ενότητες
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      Ενοτητα 1: P test
+      Ενοτητα 1: P test
+      Ενοτητα 1: P test
+    </mat-expansion-panel>
+    <mat-expansion-panel #info [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Πληροφορίες
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <p>{{ this.data.bio }} </p>
+    </mat-expansion-panel>
+    <mat-expansion-panel #pay [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Πληρωμή με κάρτα
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div id="card-payment"></div>
+      <ng-container *ngIf="!done else paymentDone">
+        <mat-bar-button style="margin-left: 6px;" [options]="btnOpts" (click)="handlePayment($event)"></mat-bar-button>
+      </ng-container>
+      <ng-template #paymentDone>
+        <button mat-icon-button color="primary"><mat-icon>check_circle</mat-icon></button>
+      </ng-template>
+  </mat-expansion-panel>
+  </mat-accordion>
 </div>
+<div id="card-errors" role="alert"></div>
+

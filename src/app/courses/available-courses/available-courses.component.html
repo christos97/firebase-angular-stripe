@@ -1,15 +1,12 @@
-<div cdkScrollable class="card-grid">
+<div class="card-grid">
   <mat-card class="mat-elevation-z3"  *ngFor="let availableCourse of availableCourses">
         <mat-card-title-group>
             <mat-card-title class="title">
                 {{availableCourse.title}}
             </mat-card-title>
-            <mat-card-subtitle>
-                Τελευταία ενημέρωση: {{ availableCourse.created_at.seconds*1000 | date: 'dd/MM/yyyy' }}
-            </mat-card-subtitle>
         </mat-card-title-group>
         <mat-card-content>
-           <img mat-card-image src='{{availableCourse.image_ref}}' style="width:150px; height:100px;" alt="">
+           <img mat-card-image src="assets/images/{{availableCourse.course_id}}/{{availableCourse.title}}-1-200x200.png" style="width:150px; height:100px;" alt="">
             <h6>{{availableCourse.price | currency: 'EUR'}} </h6>
         </mat-card-content>
         <mat-card-actions>
