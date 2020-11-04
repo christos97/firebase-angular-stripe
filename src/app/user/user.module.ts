@@ -8,7 +8,6 @@ import { GoogleSigninDirective } from './google-signin.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmailLoginComponent } from './email-login/email-login.component';
 //import { EmailLoginComponent } from './email-login/email-login.component';
-import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
   declarations: [LoginPageComponent, GoogleSigninDirective, EmailLoginComponent],
@@ -16,7 +15,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     CommonModule,
     UserRoutingModule,
     SharedModule,
-    FlexLayoutModule,
     ReactiveFormsModule
   ]
 })
