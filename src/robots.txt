@@ -1,2 +1,7 @@
 User-agent: *
 Disallow: /admin/
+
+User-agent: Googlebot
+Disallow: /admin/
+
+Sitemap: https://www.xml-sitemaps.com/download/medschool-journey.web.app-49bb39228/sitemap.xml

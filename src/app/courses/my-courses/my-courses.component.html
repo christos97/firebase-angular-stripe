@@ -1,23 +1,22 @@
-<div fxLayout="row wrap" fxLayoutGap="20px">
+<div class="card-grid">
+  <mat-card class="mat-elevation-z3"  *ngFor="let course of courses">
+        <mat-card-title-group>
+            <mat-card-title class="title">
+                {{course.title}}
+            </mat-card-title>
+        </mat-card-title-group>
+        <mat-card-content>
+           <img mat-card-image src="assets/images/{{course.course_id}}/{{course.title}}-1-200x200.png" style="width:150px; height:100px;" alt="">
+            <h4>{{course.price | currency: 'EUR'}} </h4>
+        </mat-card-content>
 
-  <div fxHide fxShow.sm="true" fxShow.xs="true" fxFlex="100%" *ngFor="let course of courses">
-      <mat-card fxLayout="column" fxLayoutAlign ="space-around center" id="card" class="mat-elevation-z1">
-          <mat-card-header>
-              <mat-card-title class="title">
-                  {{course.title}}
-              </mat-card-title>
-              <mat-card-subtitle>
-                  Τελευταία ενημέρωση: {{ course.created_at.seconds*1000 | date: 'dd/MM/yyyy' }}
-              </mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src='{{course.image_ref}}' style="width: 150px; height: 100px;" >
-          <mat-card-actions class="footer" style="text-align: center;">
-              <div>
-                  <button mat-icon-button color="primary" (click)="viewFile(course.file_ref)"><mat-icon>cloud_download</mat-icon></button>
-              </div>
-          </mat-card-actions>
-      </mat-card>
+
+<mat-card-actions class="footer" style="text-align: center;">
+  <div>
+      <button mat-icon-button color="primary" (click)="viewFile(course.file_ref)"><mat-icon>cloud_download</mat-icon></button>
   </div>
-
+</mat-card-actions>
+  </mat-card>
 </div>
+
 

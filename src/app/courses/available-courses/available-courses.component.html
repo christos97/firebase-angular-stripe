@@ -7,7 +7,7 @@
         </mat-card-title-group>
         <mat-card-content>
            <img mat-card-image src="assets/images/{{availableCourse.course_id}}/{{availableCourse.title}}-1-200x200.png" style="width:150px; height:100px;" alt="">
-            <h6>{{availableCourse.price | currency: 'EUR'}} </h6>
+            <h4>{{availableCourse.price | currency: 'EUR'}} </h4>
         </mat-card-content>
         <mat-card-actions>
             <button mat-icon-button color="primary" (click)="openDialog(availableCourse)">
@@ -16,3 +16,5 @@
         </mat-card-actions>
   </mat-card>
 </div>
+
+

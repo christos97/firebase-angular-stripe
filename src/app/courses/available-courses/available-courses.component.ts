@@ -9,7 +9,6 @@ import {
 } from '@angular/material/snack-bar';
 import { CourseService } from 'src/app/services/course.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { analytics } from 'firebase';
 @Component({
   selector: 'app-available-courses',
   templateUrl: './available-courses.component.html',
@@ -38,8 +37,16 @@ export class AvailableCoursesComponent implements OnInit , AfterViewInit {
 
  }
 
+ somethingWentWrong() {
+  this._snackBar.open('Kάτι πήγε λάθος... Μην ανησυχείς, δεν χρεώθηκες τίποτα!', '',{
+    duration: 5000,
+    horizontalPosition: this.horizontalPosition,
+    verticalPosition: this.verticalPosition,
+    panelClass: ['snack-styling'],
+  })
+ }
 
-  async openDialog({ price, title, course_id, image_ref, prod_id, bio }: Course){
+  async openDialog({ price, title, course_id, image_ref, bio }: Course){
 
     const { uid } = await this.afAuth.currentUser
 
@@ -50,32 +57,28 @@ export class AvailableCoursesComponent implements OnInit , AfterViewInit {
         "price": price,
         "title": title,
         "course_id": course_id,
-        "prod_id": prod_id ?? '',
         "image_ref": image_ref ?? '',
         "bio": bio ?? ''
       },
       autoFocus: false
     })
-
-    dialogRef.componentInstance.onClose.subscribe( data =>{
+    dialogRef.componentInstance.onClose.subscribe(async data =>{
       dialogRef.close()
       if (data){
         console.log('component instanse callback',data)
-        this.courseService.updateOwnedCourses(uid, data.course_id)
-        this._snackBar.open(`Προστέθηκε στα μαθήματα μου: ${data.title}`, '',{
-          duration: 5000,
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-          panelClass: ['snack-styling'],
-        })
-        }else {
-          this._snackBar.open('Kάτι πήγε λάθος... Μην ανησυχείς, δεν χρεώθηκες τίποτα!', '',{
+        try {
+          await this.courseService.updateOwnedCourses(uid, data.course_id)
+          this._snackBar.open(`Προστέθηκε στα μαθήματα μου: ${data.title}`, '',{
             duration: 5000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
             panelClass: ['snack-styling'],
           })
-        }
+          this.courseService.updatePurchase(title, price)
+        } catch (error) {
+            this.somethingWentWrong() }
+      } else {
+          this.somethingWentWrong() }
     })
   }
 }

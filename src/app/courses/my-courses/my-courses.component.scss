@@ -1,0 +1,40 @@
+
+.card-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  height: fit-content;
+  overflow: hidden;
+
+}
+.mat-card {
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 50px;
+  z-index: 0;
+  width: 300px;
+  height: 300px;
+  }
+
+
+.mat-card-title-group {
+  justify-content: center;
+}
+
+.mat-card-content {
+  text-align: center;
+  margin: 25px;
+  h6 {
+    margin-top: 22px;
+  }
+}
+
+.mat-card-actions {
+  text-align: center;
+  margin-top: -20px;
+}
+

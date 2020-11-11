@@ -2,11 +2,11 @@
   "hosting": [
     {
       "target": "med-school-journey",
-      "site": "medschool-journey",
-      "public": "dist/med-school-journey",
+      "public": "dist/browser",
       "ignore": [
         "**/.*"
       ],
+      "appAssociation": "AUTO",
       "headers": [
         {
           "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
@@ -21,13 +21,16 @@
       "rewrites": [
         {
           "source": "**",
-          "destination": "/index.html"
+          "function": "pre"
+        },
+        {
+          "source": "/login",
+          "dynamicLinks": true
         }
       ]
     }
   ],
   "functions": {
-    "predeploy": "npm --prefix \"$RESOURCE_DIR\" run build",
     "source": "functions"
   },
   "emulators": {

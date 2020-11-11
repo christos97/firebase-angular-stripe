@@ -4,6 +4,7 @@ export interface User {
   photoURL?: string
   displayName?: string
   cus_id?: string
+  amount_spent?: firebase.firestore.FieldValue
   status?: string
   itemId?: string
 }

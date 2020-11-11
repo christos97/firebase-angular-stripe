@@ -7,7 +7,6 @@ import { trigger, state, style, animate, transition, keyframes } from '@angular/
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PaymentService } from 'src/app/services/payment.service';
-import { analytics } from 'firebase/app';
 
 @Component({
   selector: 'app-course-list',
@@ -58,29 +57,8 @@ export class CourseListComponent implements OnInit,OnDestroy {
       (allCourses: Course[]) => {
         this.courses = allCourses.filter((course: any) => includes(course.owned_by, uid))
         this.availableCourses = difference(allCourses, this.courses)
-        console.log(this.availableCourses)
-        let items: firebase.analytics.Item [] = []
-        this.availableCourses.map((course:Course) => {
-          console.log('COURSE', course)
-          let item: firebase.analytics.Item = {
-            item_id: course.course_id,
-            item_name: course.title,
-            item_category: 'e-books',
-            price: course.price,
-            quantity: 1,
-
-          }
-          items.push(item)
         })
-        const list = {
-          item_list_id: 'e-books-ids',
-          item_list_name: 'e-books',
-          items: items
-        }
-        console.log(list);
 
-        analytics().logEvent('view_item_list', list)
-      })
   }
 
 

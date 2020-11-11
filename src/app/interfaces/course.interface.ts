@@ -6,8 +6,8 @@ export interface Course {
     price: number
     title: string
     bio: string
-    prod_id?: string
     file_ref: string
     image_ref: string
     owned_by: firebase.firestore.FieldValue
+    times_bought?: firebase.firestore.FieldValue
 }

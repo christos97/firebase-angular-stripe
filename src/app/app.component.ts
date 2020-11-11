@@ -1,31 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import * as firebase from "firebase/app";
+import { Component } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
+import "firebase/app";
 import "firebase/firestore"
 import "firebase/auth"
-import "firebase/analytics"
 import "firebase/functions"
 import "firebase/storage"
 import "firebase/messaging"
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'med-school-journey';
-
-  async ngOnInit() {
-    try {
-      await Promise.all([
-        firebase.firestore().enablePersistence(),// set {synchronizeTabs:true} for resource sharing across tabs
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL),
-      ])
-      firebase.analytics()
-      console.warn('Persistence enabled')
-    } catch (error) {
-      console.error('Persistense Failed')
-    }
-
+  constructor(public platform: Platform)
+  {
+      if (!this.platform.isBrowser && 'serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((regs: any) =>{
+          for (let reg of regs) reg.unregister()
+        })
+      }
+      console.log(this.platform)
   }
+
 
 }

@@ -21,7 +21,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppComponent, HomeComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
